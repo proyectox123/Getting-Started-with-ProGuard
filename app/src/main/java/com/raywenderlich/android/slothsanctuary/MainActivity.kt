@@ -30,6 +30,7 @@
 
 package com.raywenderlich.android.slothsanctuary
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -40,6 +41,10 @@ import com.igalata.bubblepicker.model.PickerItem
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+  private val viewModel: SlothViewModel by lazy {
+    ViewModelProviders.of(this).get(SlothViewModel::class.java)
+  }
 
   override fun onCreate(savedInstanceState: Bundle?)
   {
@@ -60,12 +65,14 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun setupBubblePicker() {
+    val map = viewModel.getSloths(resources)
+
     picker.bubbleSize = 50
     picker.centerImmediately = true
     picker.adapter = object : BubblePickerAdapter {
 
       val colors = resources.obtainTypedArray(R.array.colors)
-      val titles = listOf("1", "2", "3", "4", "5", "6")
+      val titles = map.toList()
 
       val multiplier = 2
       val modulus = 8
@@ -75,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
       override fun getItem(position: Int): PickerItem { // 2
         return PickerItem().apply {
-          title = titles[position]
+          title = titles[position].first
 
           val start = colors.getColor((position * multiplier) % modulus,0)
           val end = colors.getColor((position * multiplier) % modulus + addition,0)

@@ -24,3 +24,7 @@
 
 #In order to keep org.jbox2d
 -keep class org.jbox2d.** { *; }
+
+#Ignore the animal_sniffer warnings
+-dontwarn javax.xml.stream.**
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement

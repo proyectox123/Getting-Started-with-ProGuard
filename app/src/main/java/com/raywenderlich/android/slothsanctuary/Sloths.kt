@@ -30,5 +30,12 @@
 
 package com.raywenderlich.android.slothsanctuary
 
+import org.simpleframework.xml.ElementList
+import org.simpleframework.xml.Root
+
+@Root(name = "sloths", strict = false)
 data class Sloths constructor(
-  val list: List<Sloth>? = null)
+        @field:ElementList(entry = "sloth", inline = true)
+        @param:ElementList(entry = "sloth", inline = true)
+        val list: List<Sloth>? = null
+)

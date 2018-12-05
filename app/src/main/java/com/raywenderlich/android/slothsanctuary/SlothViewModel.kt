@@ -32,6 +32,7 @@ package com.raywenderlich.android.slothsanctuary
 
 import android.arch.lifecycle.ViewModel
 import android.content.res.Resources
+import org.simpleframework.xml.core.Persister
 import java.util.SortedMap
 
 class SlothViewModel : ViewModel() {
@@ -46,7 +47,13 @@ class SlothViewModel : ViewModel() {
     return sloths ?: sortedMapOf()
   }
 
-  private fun loadSloths(resources: Resources) : SortedMap<String, Sloth> {
-    return sortedMapOf()
+  private fun loadSloths(resources: Resources) { // 1
+    val serializer = Persister()
+    val inputStream = resources.openRawResource(R.raw.sloths) // 2
+    val sloths = serializer.read(Sloths::class.java, inputStream) // 3
+    sloths.list?.let { theList ->
+      val map = theList.associateBy( { it.name }, {it})
+      this.sloths = map.toSortedMap()
+    }
   }
 }
