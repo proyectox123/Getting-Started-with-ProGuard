@@ -28,3 +28,6 @@
 #Ignore the animal_sniffer warnings
 -dontwarn javax.xml.stream.**
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+#Keep sections that use reflection
+-keep class * implements org.simpleframework.xml.core.Parameter { public *; }

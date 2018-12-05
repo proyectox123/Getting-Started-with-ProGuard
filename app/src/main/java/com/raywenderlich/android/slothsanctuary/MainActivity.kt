@@ -31,6 +31,7 @@
 package com.raywenderlich.android.slothsanctuary
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -96,7 +97,12 @@ class MainActivity : AppCompatActivity() {
     picker.listener = object : BubblePickerListener { // 3
 
       override fun onBubbleSelected(item: PickerItem) {
+        val showDetailsIntent = Intent(picker.context, SlothDetailActivity::class.java)
+        val pet = map[item.title]
+        showDetailsIntent.putExtra(SLOTH_KEY, pet)
+        startActivity(showDetailsIntent)
 
+        item.isSelected = false
       }
 
       override fun onBubbleDeselected(item: PickerItem) {
