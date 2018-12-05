@@ -31,6 +31,8 @@
 package com.raywenderlich.android.slothsanctuary
 
 import android.support.annotation.Keep
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.full.memberProperties
 
 class BN { //BubbleNumbers
   fun sn() { //setupNumbers
@@ -49,6 +51,10 @@ object GO { //GradientObject
 }
 
 fun sv(ownerClassName: String, fieldName: String, value: Any) { //setValue - uses reflection
-
+  val kClass = Class.forName(ownerClassName).kotlin // 1
+  val instance = kClass.objectInstance ?: kClass.java.newInstance() // 2
+  val member = kClass.memberProperties.filterIsInstance<KMutableProperty<*>>()
+          .firstOrNull { it.name == fieldName } // 3
+  member?.setter?.call(instance, value) // 4
 }
 

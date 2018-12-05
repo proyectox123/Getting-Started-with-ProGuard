@@ -31,3 +31,8 @@
 
 #Keep sections that use reflection
 -keep class * implements org.simpleframework.xml.core.Parameter { public *; }
+-keep class kotlin.reflect.jvm.internal.** { *; }
+-keep class kotlin.Metadata { *; }
+
+#Keep reference of an annotated class
+-keepclassmembers class * { @org.simpleframework.xml.* *; }

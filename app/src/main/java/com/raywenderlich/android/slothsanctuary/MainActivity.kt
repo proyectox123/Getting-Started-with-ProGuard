@@ -52,6 +52,9 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
+    val bn = BN() //BubbleNumbers
+    bn.sn() //bubbleNumbers.setupNumbers
+
     setupBubblePicker()
   }
 
@@ -75,9 +78,9 @@ class MainActivity : AppCompatActivity() {
       val colors = resources.obtainTypedArray(R.array.colors)
       val titles = map.toList()
 
-      val multiplier = 2
-      val modulus = 8
-      val addition = 1
+      val multiplier = GO.f1
+      val modulus = GO.f2
+      val addition = GO.f3
 
       override val totalCount = titles.size // 1
 
