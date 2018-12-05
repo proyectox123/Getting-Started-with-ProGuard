@@ -44,6 +44,7 @@ class BN { //BubbleNumbers
   }
 }
 
+@Keep
 object GO { //GradientObject
   var f1 = 3 //field1
   var f2 = 6 //field2
