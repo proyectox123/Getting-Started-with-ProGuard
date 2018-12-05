@@ -20,5 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -dontwarn org.slf4j.**
-
 -dontwarn sun.misc.**
+
+#In order to keep org.jbox2d
+-keep class org.jbox2d.** { *; }
